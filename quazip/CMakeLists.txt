@@ -19,6 +19,7 @@ endif ()
 find_package(ZLIB REQUIRED)
 target_link_libraries(quazip_static PRIVATE ZLIB::ZLIB)
 target_link_libraries(${QUAZIP_LIB_TARGET_NAME} PRIVATE ZLIB::ZLIB)
+target_compile_definitions(quazip_static PUBLIC -DQUAZIP_STATIC)
 
 target_include_directories(${QUAZIP_LIB_TARGET_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${ZLIB_INCLUDE_DIRS})
 target_include_directories(quazip_static PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${ZLIB_INCLUDE_DIRS})
