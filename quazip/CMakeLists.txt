@@ -9,12 +9,16 @@ set(SRCS ${SRCS} ${MOC_SRCS})
 
 add_library(${QUAZIP_LIB_TARGET_NAME} SHARED ${SRCS})
 add_library(quazip_static STATIC ${SRCS})
- 
+
 # Windows uses .lib extension for both static and shared library
 # *nix systems use different extensions for SHARED and STATIC library and by convention both libraries have the same name
 if (NOT WIN32)
 	set_target_properties(quazip_static PROPERTIES OUTPUT_NAME quazip${QUAZIP_LIB_VERSION_SUFFIX})
 endif ()
+
+find_package(ZLIB REQUIRED)
+target_link_libraries(quazip_static PRIVATE ZLIB::ZLIB)
+target_link_libraries(${QUAZIP_LIB_TARGET_NAME} PRIVATE ZLIB::ZLIB)
 
 target_include_directories(${QUAZIP_LIB_TARGET_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${ZLIB_INCLUDE_DIRS})
 target_include_directories(quazip_static PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${ZLIB_INCLUDE_DIRS})
